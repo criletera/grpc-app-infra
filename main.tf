@@ -164,50 +164,6 @@ EOF
             min_size = 1
         }
     }
-    alb_target_group_parameters = {
-        grpc_app_target_group = {
-            target_group_name = "grpc-alb-tg"
-            port = 30728
-            protocol = "HTTP"
-            vpc_id = module.networking.vpcs["grpc_app_vpc"].id
-            slow_start = 0
-            load_balancing_algorithm_type = "round_robin"
-            stickiness_enabled = false
-            stickiness_type = "lb_cookie"
-            health_check_enabled = true
-            health_check_port = 30728
-            health_check_interval = 30
-            health_check_protocol = "HTTP"
-            health_check_path = "/"
-            health_check_matcher = "200"
-            health_check_healthy_threshold = 3
-            health_check_unhealthy_threshold = 3
-        }
-    }
-    alb_tg_attachment_parameters = {
-        grpc_app_tg_attachment = {
-            target_group_name = "grpc_app_target_group"
-            port = 30728
-        }
-    }
-    alb_parameters = {
-        grpc_lb = {
-            lb_name     = "grpc-alb"
-            internal    = false
-            load_balancer_type  = "application"
-            subnet_ids          = [
-                module.networking.subnets.grpc_app_public_subnet_1.id,
-                module.networking.subnets.grpc_app_public_subnet_2.id
-            ]
-        }
-    }
-    alb_listener_parameters = {
-        grpc_lb_listener = {
-            lb_name = "grpc_lb"
-            port = 8000
-            protocol = "HTTP"
-            target_group_name = "grpc_app_target_group"
-        }
-    }
+    
 }
 
